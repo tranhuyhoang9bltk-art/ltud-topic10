@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{% if page_obj and page_obj.meta_description %}{{ page_obj.meta_description }}{% else %}Trang chi tiết blog của Phozogy Template{% endif %}">
+    <meta name="keywords" content="{% if page_obj and page_obj.meta_keywords %}{{ page_obj.meta_keywords }}{% else %}Phozogy, unica, sáng tạo, html, blog{% endif %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phozogy | {% if page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Chi tiết Blog{% endif %}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Quantico:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    {% include 'portfolio/includes/header.html' %}
+
+    <!-- Blog Details Section Begin -->
+    {% if post and post.hero_image %}
+        <div class="blog-hero set-bg" style="background-image: url('{{ post.hero_image.url }}');"></div>
+    {% else %}
+        <div class="blog-hero set-bg" data-setbg="{% static 'img/blog/details/blog-hero.jpg' %}"></div>
+    {% endif %}
+    <section class="blog-details-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-details-text">
+                        <div class="bd-title">
+                            {% if post %}
+                                <h2>{{ post.title }}</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="bd-pics">
+                            {% if post and post.image %}
+                                <img src="{{ post.image.url }}" alt="">
+                            {% endif %}
+                        </div>
+
+                        <div class="bd-top-text">
+                            {% if post %}
+                                {{ post.content|linebreaks }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Details Section End -->
+
+    {% include 'portfolio/includes/footer.html' %}
+
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

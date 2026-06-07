@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Danh mục sản phẩm">
+    <meta name="keywords" content="Danh mục, sản phẩm, dịch vụ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Danh Mục | Phozogy</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Quantico:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    {% include 'portfolio/includes/header.html' %}
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bo-links">
+                        <a href="{% url "home" %}"><i class="fa fa-home"></i> Trang chủ</a>
+                        <span>Danh mục</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Categories Section Begin -->
+    <section class="categories-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Tất Cả Danh Mục</h2>
+                        <p>Khám phá đầy đủ những danh mục ảnh chuyên nghiệp của chúng tôi</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% if categories %}
+                    {% for cat in categories %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                        <a href="{% url 'portfolio' %}?category={{ cat.id }}" style="text-decoration: none; color: inherit;">
+                            <div class="cs-item" style="height: 100%;">
+                                <div class="cs-pic set-bg" data-setbg="{% if cat.image %}{{ cat.image.url }}{% else %}{% static 'img/categories/cat-1.jpg' %}{% endif %}" style="height: 300px; cursor: pointer;"></div>
+                                <div class="cs-text" style="padding: 20px; background-color: #f9f9f9; text-align: center;">
+                                    <h4 style="opacity: 1; visibility: visible;">{{ cat.name }}</h4>
+                                    <p style="color: #666; font-size: 14px; margin: 10px 0 0 0;">{{ cat.description|truncatechars:80 }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-lg-12">
+                        <div style="text-align: center; padding: 60px 20px; background-color: #f5f5f5; margin: 20px; border-radius: 5px;">
+                            <h3 style="color: #666;">Chưa có danh mục nào</h3>
+                            <p style="color: #999; margin-top: 10px;">Vui lòng quay lại sau hoặc liên hệ quản trị viên</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
+
+    {% include 'portfolio/includes/footer.html' %}
+
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

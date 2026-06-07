@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang cá nhân</title>
+</head>
+<body>
+    {% include 'portfolio/includes/header.html' %}
+    <h1>Trang cá nhân</h1>
+
+    <section>
+        <h2>Hồ sơ</h2>
+        {% if profile %}
+            <p>Tên: {{ profile.name }}</p>
+            <p>Email: {{ profile.email }}</p>
+            <p>Điện thoại: {{ profile.phone }}</p>
+            <p>Tiểu sử: {{ profile.bio }}</p>
+        {% else %}
+            <p>Chưa tạo hồ sơ.</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Kỹ năng</h2>
+        <ul>
+            {% for skill in skills %}
+                <li>{{ skill.name }} — {{ skill.percent }}%</li>
+            {% empty %}
+                <li>Chưa có kỹ năng nào được thêm.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Dự án</h2>
+        <p><a href="{% url 'add_project' %}">Thêm dự án mới</a></p>
+        <ul>
+            {% for project in projects %}
+                <li>
+                    <strong>{{ project.title }}</strong>
+                    <p>{{ project.description }}</p>
+                    <a href="{% url 'edit_project' project.id %}">Chỉnh sửa</a>
+                    <a href="{% url 'delete_project' project.id %}">Xóa</a>
+                </li>
+            {% empty %}
+                <li>Chưa có dự án.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Blog</h2>
+        <p><a href="{% url 'blog' %}">Xem danh sách blog</a></p>
+        <ul>
+            {% for blog in blogs %}
+                <li>{{ blog.title }} — {{ blog.created_at|date:'Y-m-d' }}</li>
+            {% empty %}
+                <li>Chưa có bài blog.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    {% include 'portfolio/includes/footer.html' %}
+</body>
+</html>

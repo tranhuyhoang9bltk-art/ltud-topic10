@@ -1,0 +1,34 @@
+{% load static %}
+<section class="portfolio-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Những bức ảnh nổi bật</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 p-0">
+                <div class="portfolio-filter">
+                    {% for g in gallery_list %}
+                        <div class="pf-item set-bg" data-setbg="{{ g.image.url }}">
+                            <a href="{{ g.image.url }}" class="pf-icon image-popup"><span class="icon_plus"></span></a>
+                            <div class="pf-text">
+                                <h4>{{ g.title }}</h4>
+                                <span></span>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="pf-item set-bg" data-setbg="{% static 'img/portfolio/pf-1.jpg' %}">
+                            <a href="{% static 'img/portfolio/pf-1.jpg' %}" class="pf-icon image-popup"><span class="icon_plus"></span></a>
+                            <div class="pf-text"><h4>COLORS SPEAK</h4><span>Fashion</span></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{% if page_obj and page_obj.meta_description %}{{ page_obj.meta_description }}{% else %}Dịch vụ của Phozogy Template{% endif %}">
+    <meta name="keywords" content="{% if page_obj and page_obj.meta_keywords %}{{ page_obj.meta_keywords }}{% else %}Phozogy, unica, sáng tạo, html, dịch vụ{% endif %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phozogy | {% if page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Dịch vụ{% endif %}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Quantico:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    {% include 'portfolio/includes/header.html' %}
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bo-links">
+                        <a href="{% url "home" %}"><i class="fa fa-home"></i> Trang chủ</a>
+                        <span>{% if page_obj and page_obj.breadcrumb_title %}{{ page_obj.breadcrumb_title }}{% elif page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Dịch vụ{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Services Section Begin -->
+    <section class="services-section services-normal spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="services-item">
+                        <img src="{% static 'img/services/service-1.jpg' %}" alt="">
+                        <h3>Chụp ảnh</h3>
+                        <p>Chúng tôi cung cấp dịch vụ chụp ảnh chuyên nghiệp với phong cách sáng tạo và chất lượng cao.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="services-item">
+                        <img src="{% static 'img/services/service-2.jpg' %}" alt="">
+                        <h3>Video</h3>
+                        <p>Video sự kiện và quảng cáo được sản xuất tỉ mỉ, giúp thương hiệu của bạn nổi bật hơn.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="services-item">
+                        <img src="{% static 'img/services/service-3.jpg' %}" alt="">
+                        <h3>Chỉnh sửa</h3>
+                        <p>Hậu kỳ ảnh chuyên nghiệp, xử lý màu sắc và hiệu ứng để sản phẩm trông ấn tượng hơn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section End -->
+
+    <!-- Services Option Section Begin -->
+    <section class="services-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="so-item">
+                        <div class="so-title">
+                            <div class="so-number">01</div>
+                            <h5>Quay phim và chỉnh sửa</h5>
+                        </div>
+                        <p>Dịch vụ quay phim kết hợp hậu kỳ chuyên nghiệp, giúp dự án của bạn trở nên sống động hơn.</p>
+                    </div>
+                    <div class="so-item">
+                        <div class="so-title">
+                            <div class="so-number">02</div>
+                            <h5>Chụp ảnh đính hôn</h5>
+                        </div>
+                        <p>Giữ lại khoảnh khắc đáng nhớ với ảnh đính hôn tinh tế và lãng mạn.</p>
+                    </div>
+                    <div class="so-item">
+                        <div class="so-title">
+                            <div class="so-number">03</div>
+                            <h5>Chụp ảnh thương mại</h5>
+                        </div>
+                        <p>Ảnh thương mại chuyên nghiệp cho sản phẩm, quảng cáo và thương hiệu của bạn.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="so-item">
+                        <div class="so-title">
+                            <div class="so-number">04</div>
+                            <h5>Chụp ảnh mạng xã hội</h5>
+                        </div>
+                        <p>Ảnh phù hợp với nội dung mạng xã hội, giúp tăng tương tác và thu hút người xem.</p>
+                    </div>
+                    <div class="so-item">
+                        <div class="so-title">
+                            <div class="so-number">05</div>
+                            <h5>Chụp ảnh sự kiện</h5>
+                        </div>
+                        <p>Ghi lại toàn bộ sự kiện với góc máy chuyên nghiệp và cảm xúc tự nhiên.</p>
+                    </div>
+                    <div class="so-item">
+                        <div class="so-title">
+                            <div class="so-number">06</div>
+                            <h5>Chụp ảnh cá nhân</h5>
+                        </div>
+                        <p>Ảnh chân dung cá nhân đẹp, tôn lên phong cách và cá tính riêng của bạn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Option Section End -->
+
+    {% include 'portfolio/includes/footer.html' %}
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-about">
+                        <div class="fa-logo">
+                            <a href="#">
+                                <img src="{% static 'img/f-logo.png' %}" alt="">
+                            </a>
+                        </div>
+                        <p>Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                            et dolore magna aliqua.</p>
+                        <div class="fa-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-widget">
+                        <h5>Instagram</h5>
+                        <div class="fw-instagram">
+                            <img src="{% static 'img/instagram/insta-1.jpg' %}" alt="">
+                            <img src="{% static 'img/instagram/insta-2.jpg' %}" alt="">
+                            <img src="{% static 'img/instagram/insta-3.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-widget">
+                        <h5>Liên kết nhanh</h5>
+                        <ul>
+                            <li><a href="{% url 'home' %}">Trang chủ</a></li>
+                            <li><a href="{% url 'theme_page' 'about.html' %}">Giới thiệu</a></li>
+                            <li><a href="{% url 'contact' %}">Liên hệ</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="{% url 'theme_page' 'gallery.html' %}">Thư viện</a></li>
+                            <li><a href="{% url 'theme_page' 'portfolio.html' %}">Dự án</a></li>
+                            <li><a href="{% url 'theme_page' 'services.html' %}">Dịch vụ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-widget">
+                        <h5>Subscribe</h5>
+                        <p>Imolor amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                        <div class="fw-subscribe">
+                            <form action="#">
+                                <input type="text" placeholder="Email">
+                                <button type="submit"><i class="fa fa-send"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="copyright-text">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

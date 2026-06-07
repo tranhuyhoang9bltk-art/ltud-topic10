@@ -1,0 +1,24 @@
+{% load static %}
+<section class="hero-section">
+    <div class="hs-slider owl-carousel">
+        {% for h in hero_list %}
+            <div class="hs-item set-bg" data-setbg="{% if h.image %}{{ h.image.url }}{% else %}{% static 'img/hero/hero-1.jpg' %}{% endif %}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="hs-text">
+                                <h2>{{ h.heading }}</h2>
+                                <p>{{ h.subheading }}</p>
+                                <a href="{% url 'contact' %}" class="primary-btn">Liên hệ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="hs-item set-bg" data-setbg="{% static 'img/hero/hero-1.jpg' %}">
+                <div class="container"><div class="row"><div class="col-lg-12"><div class="hs-text"><h2>Photography Studio</h2><p>Default hero text</p><a href="{% url 'contact' %}" class="primary-btn">Liên hệ</a></div></div></div></div>
+            </div>
+        {% endfor %}
+    </div>
+</section>

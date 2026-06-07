@@ -1,0 +1,125 @@
+{% load static %}
+<footer class="footer-section">
+    <div class="container">
+        <div class="row">
+            <!-- Logo & Thông tin -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="fs-about">
+                    <div class="fa-logo">
+                        <a href="{% url 'home' %}">
+                            {% if site_settings and site_settings.footer_logo %}
+                                <img src="{{ site_settings.footer_logo.url }}" alt="{{ site_settings.site_title }}">
+                            {% elif site_settings and site_settings.logo %}
+                                <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_title }}">
+                            {% else %}
+                                <img src="{% static 'img/f-logo.png' %}" alt="{{ site_settings.site_title|default:'Site' }}">
+                            {% endif %}
+                        </a>
+                    </div>
+                    {% if site_settings and site_settings.footer_heading %}
+                        <h4>{{ site_settings.footer_heading }}</h4>
+                    {% endif %}
+                    <p>{% if site_settings and site_settings.footer_description %}{{ site_settings.footer_description }}{% else %}Tạo những hình ảnh đầy cảm xúc và chuyên nghiệp.{% endif %}</p>
+                    <!-- Mạng xã hội -->
+                    <div class="fa-social">
+                        {% if site_settings.facebook_url %}
+                            <a href="{{ site_settings.facebook_url }}" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a>
+                        {% endif %}
+                        {% if site_settings.twitter_url %}
+                            <a href="{{ site_settings.twitter_url }}" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        {% endif %}
+                        {% if site_settings.youtube_url %}
+                            <a href="{{ site_settings.youtube_url }}" target="_blank" title="YouTube"><i class="fa fa-youtube-play"></i></a>
+                        {% endif %}
+                        {% if site_settings.instagram_url %}
+                            <a href="{{ site_settings.instagram_url }}" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+                        {% endif %}
+                        {% if site_settings.linkedin_url %}
+                            <a href="{{ site_settings.linkedin_url }}" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thư viện Instagram -->
+            {% if gallery_list %}
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="fs-widget">
+                    <h5>📷 Thư viện ảnh</h5>
+                    <div class="fw-instagram">
+                        {% for item in gallery_list|slice:":3" %}
+                            {% if item.image %}
+                                <a href="{{ item.image.url }}" class="image-popup-vertical" title="{{ item.title }}">
+                                    <img src="{{ item.image.url }}" alt="{{ item.title }}" style="width: 100%; height: 100px; object-fit: cover;">
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="fs-widget">
+                    <h5>📷 Thư viện ảnh</h5>
+                    <div class="fw-instagram">
+                        <img src="{% static 'img/instagram/insta-1.jpg' %}" alt="">
+                        <img src="{% static 'img/instagram/insta-2.jpg' %}" alt="">
+                        <img src="{% static 'img/instagram/insta-3.jpg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Liên kết nhanh -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="fs-widget">
+                    <h5>⚡ Liên kết nhanh</h5>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Trang chủ</a></li>
+                        <li><a href="{% url 'profile' %}">Hồ sơ</a></li>
+                        <li><a href="{% url 'contact' %}">Liên hệ</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="{% url 'theme_page' 'gallery.html' %}">Thư viện</a></li>
+                        <li><a href="{% url 'theme_page' 'portfolio.html' %}">Dự án</a></li>
+                        <li><a href="{% url 'theme_page' 'services.html' %}">Dịch vụ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Thông tin liên hệ -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="fs-widget">
+                    <h5>📞 Liên hệ</h5>
+                    {% if site_settings.email or site_settings.phone %}
+                        <p>
+                            {% if site_settings.email %}
+                                📧 <a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a><br>
+                            {% endif %}
+                            {% if site_settings.phone %}
+                                ☎️ <a href="tel:{{ site_settings.phone }}">{{ site_settings.phone }}</a><br>
+                            {% endif %}
+                            {% if site_settings.address %}
+                                📍 {{ site_settings.address }}<br>
+                            {% endif %}
+                        </p>
+                    {% else %}
+                        <p>
+                            📧 <a href="mailto:info@example.com">info@example.com</a><br>
+                            ☎️ 125-711-811<br>
+                            📍 333 Middle Winchendon Rd, Rindge
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="col-lg-12">
+                <div class="copyright-text">
+                    <p>{{ site_settings.copyright_text|default:"© 2026 Phozogy Demo. " }} <script>document.write(new Date().getFullYear());</script></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+

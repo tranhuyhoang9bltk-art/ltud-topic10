@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{% if page_obj and page_obj.meta_description %}{{ page_obj.meta_description }}{% else %}Bảng giá dịch vụ của Phozogy Template{% endif %}">
+    <meta name="keywords" content="{% if page_obj and page_obj.meta_keywords %}{{ page_obj.meta_keywords }}{% else %}Phozogy, unica, sáng tạo, html, bảng giá{% endif %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phozogy | {% if page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Bảng giá{% endif %}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Quantico:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    {% include 'portfolio/includes/header.html' %}
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bo-links">
+                        <a href="{% url "home" %}"><i class="fa fa-home"></i> Trang chủ</a>
+                        <span>{% if page_obj and page_obj.breadcrumb_title %}{{ page_obj.breadcrumb_title }}{% elif page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Giá{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Pricing Section Begin -->
+    <section id="pricing" class="pricing-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title pricing-title">
+                        <h2>{% if page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Dịch vụ & giá tốt nhất{% endif %}</h2>
+                        <p>{% if page_obj and page_obj.meta_description %}{{ page_obj.meta_description }}{% else %}Chọn gói dịch vụ phù hợp với nhu cầu chụp ảnh và quay phim của bạn.{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% if pricing_packages %}
+                    {% for package in pricing_packages %}
+                        <div class="col-lg-3 col-md-6">
+                            <div class="pricing-item">
+                                <div class="pi-price">
+                                    <h2>${{ package.price }}</h2>
+                                    <span>{{ package.duration }} giờ</span>
+                                </div>
+                                <div class="pi-title">
+                                    <h3>{{ package.get_name_display }}</h3>
+                                </div>
+                                <div class="pi-text">
+                                    <ul>
+                                        {% if package.features %}
+                                            {% for feature in package.features %}
+                                                <li>{{ feature }}</li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li>Tối đa 30 ảnh</li>
+                                            <li>Không chỉnh sửa ảnh</li>
+                                            <li>Không trang điểm</li>
+                                            <li>Không hỗ trợ stylist</li>
+                                        {% endif %}
+                                    </ul>
+                                    <a href="#" onclick="openBookingModal(event, '{{ package.name }}', '{{ package.price }}')" class="primary-btn">Đặt lịch</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-lg-12">
+                        <p>Hiện chưa có gói giá nào. Vui lòng kiểm tra lại sau.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- Pricing Section End -->
+
+    <!-- Services Option Section Begin -->
+    {% if page_obj and page_obj.content %}
+        <section class="services-option">
+            <div class="container">
+                {{ page_obj.content|safe }}
+            </div>
+        </section>
+    {% else %}
+        <section class="services-option">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="section-title">
+                            <h2>Các câu hỏi thường gặp</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="so-item">
+                            <div class="so-title">
+                                <div class="so-number">01</div>
+                                <h5>Quay phim và chỉnh sửa</h5>
+                            </div>
+                            <p>Chúng tôi xử lý hậu kỳ kỹ càng để video và hình ảnh của bạn luôn ấn tượng và chuyên nghiệp.</p>
+                        </div>
+                        <div class="so-item">
+                            <div class="so-title">
+                                <div class="so-number">02</div>
+                                <h5>Chụp ảnh đính hôn</h5>
+                            </div>
+                            <p>Tạo ra những tấm ảnh lãng mạn, lưu giữ khoảnh khắc ngọt ngào của hai bạn.</p>
+                        </div>
+                        <div class="so-item">
+                            <div class="so-title">
+                                <div class="so-number">03</div>
+                                <h5>Chụp ảnh thương mại</h5>
+                            </div>
+                            <p>Ảnh sản phẩm và quảng cáo được thiết kế để thu hút khách hàng và nâng tầm thương hiệu.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="so-item">
+                            <div class="so-title">
+                                <div class="so-number">04</div>
+                                <h5>Chụp ảnh mạng xã hội</h5>
+                            </div>
+                            <p>Chúng tôi tạo nội dung ảnh phù hợp với phong cách và định hướng kênh xã hội của bạn.</p>
+                        </div>
+                        <div class="so-item">
+                            <div class="so-title">
+                                <div class="so-number">05</div>
+                                <h5>Chụp ảnh sự kiện</h5>
+                            </div>
+                            <p>Ghi lại từng khoảnh khắc quan trọng của sự kiện với góc máy chuyên nghiệp và giàu cảm xúc.</p>
+                        </div>
+                        <div class="so-item">
+                            <div class="so-title">
+                                <div class="so-number">06</div>
+                                <h5>Chụp ảnh cá nhân</h5>
+                            </div>
+                            <p>Ảnh chân dung cá nhân tôn lên vẻ đẹp và phong cách riêng của bạn.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    <!-- Services Option Section End -->
+
+    {% include 'portfolio/includes/footer.html' %}
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-about">
+                        <div class="fa-logo">
+                            <a href="#">
+                                <img src="{% static 'img/f-logo.png' %}" alt="">
+                            </a>
+                        </div>
+                        <p>Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                            et dolore magna aliqua.</p>
+                        <div class="fa-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-widget">
+                        <h5>Instagram</h5>
+                        <div class="fw-instagram">
+                            <img src="{% static 'img/instagram/insta-1.jpg' %}" alt="">
+                            <img src="{% static 'img/instagram/insta-2.jpg' %}" alt="">
+                            <img src="{% static 'img/instagram/insta-3.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-widget">
+                        <h5>Liên kết nhanh</h5>
+                        <ul>
+                            <li><a href="{% url 'home' %}">Trang chủ</a></li>
+                            <li><a href="{% url 'theme_page' 'about.html' %}">Giới thiệu</a></li>
+                            <li><a href="{% url 'contact' %}">Liên hệ</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="{% url 'theme_page' 'gallery.html' %}">Thư viện</a></li>
+                            <li><a href="{% url 'theme_page' 'portfolio.html' %}">Dự án</a></li>
+                            <li><a href="{% url 'theme_page' 'services.html' %}">Dịch vụ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-widget">
+                        <h5>Subscribe</h5>
+                        <p>Imolor amet consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                        <div class="fw-subscribe">
+                            <form action="#">
+                                <input type="text" placeholder="Email">
+                                <button type="submit"><i class="fa fa-send"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="copyright-text">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+
+    <!-- Booking Modal Begin -->
+    <div id="bookingModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đặt lịch chụp ảnh</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="bookingForm">
+                        <form id="paymentForm">
+                            <div class="form-group">
+                                <label for="packageName">Gói dịch vụ</label>
+                                <input type="text" class="form-control" id="packageName" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="customerName">Họ tên *</label>
+                                <input type="text" class="form-control" id="customerName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customerEmail">Email *</label>
+                                <input type="email" class="form-control" id="customerEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customerPhone">Số điện thoại *</label>
+                                <input type="tel" class="form-control" id="customerPhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="scheduledDate">Ngày dự kiến chụp ảnh *</label>
+                                <input type="date" class="form-control" id="scheduledDate" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Xác nhận đặt lịch</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Booking Modal End -->
+
+    <!-- Success Modal Begin -->
+    <div id="successModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đặt lịch thành công</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Chúc mừng, bạn đã đặt lịch thành công. Thông tin khách hàng đã được gửi tới admin để xác nhận và liên hệ lại với bạn.</p>
+                    <div style="margin-top: 15px;">
+                        <p><strong>ID Đặt lịch:</strong> <span id="successBookingId"></span></p>
+                        <p><strong>Gói dịch vụ:</strong> <span id="successPackage"></span></p>
+                        <p><strong>Giá tiền:</strong> <span id="successPrice"></span></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Success Modal End -->
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <script>
+        let currentPackage = '';
+        let currentPrice = '';
+
+        function openBookingModal(event, packageName, price) {
+            event.preventDefault();
+            currentPackage = packageName;
+            currentPrice = price;
+            
+            const packageDisplay = {
+                'basic': 'Cơ bản',
+                'standard': 'Tiêu chuẩn',
+                'premium': 'Mở rộng',
+                'ultimate': 'Tối ưu'
+            };
+            
+            document.getElementById('packageName').value = packageDisplay[packageName] + ' - ' + price;
+            document.getElementById('bookingForm').style.display = 'block';
+            document.getElementById('paymentForm').reset();
+            
+            $('#bookingModal').modal('show');
+        }
+
+        function resetBookingForm() {
+            document.getElementById('bookingForm').style.display = 'block';
+            document.getElementById('paymentForm').reset();
+        }
+
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const customerName = document.getElementById('customerName').value;
+            const customerEmail = document.getElementById('customerEmail').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const scheduledDate = document.getElementById('scheduledDate').value;
+
+            if (!customerName || !customerEmail || !customerPhone || !scheduledDate) {
+                alert('Vui lòng điền đầy đủ thông tin');
+                return;
+            }
+
+            // Disable submit button
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Đang xử lý...';
+
+            // Call API
+            fetch('/api/create-booking/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    package: currentPackage,
+                    customer_name: customerName,
+                    customer_email: customerEmail,
+                    customer_phone: customerPhone,
+                    scheduled_date: scheduledDate
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    $('#bookingModal').modal('hide');
+                    document.getElementById('successBookingId').textContent = data.booking_id;
+                    document.getElementById('successPackage').textContent = data.package_name;
+                    document.getElementById('successPrice').textContent = '$' + data.price;
+                    document.getElementById('paymentForm').reset();
+                    $('#successModal').modal('show');
+                } else {
+                    alert('Lỗi: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra. Vui lòng thử lại.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            });
+        });
+
+        // Set minimum date to today
+        document.getElementById('scheduledDate').min = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+
+</html>

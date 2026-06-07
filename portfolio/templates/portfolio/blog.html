@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{% if page_obj and page_obj.meta_description %}{{ page_obj.meta_description }}{% else %}Blog của Phozogy Template{% endif %}">
+    <meta name="keywords" content="{% if page_obj and page_obj.meta_keywords %}{{ page_obj.meta_keywords }}{% else %}Phozogy, unica, sáng tạo, html, blog{% endif %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phozogy | {% if page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Blog{% endif %}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Quantico:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    {% include 'portfolio/includes/header.html' %}
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bo-links">
+                        <a href="{% url "home" %}"><i class="fa fa-home"></i> Trang chủ</a>
+                        <span>{% if page_obj and page_obj.breadcrumb_title %}{{ page_obj.breadcrumb_title }}{% elif page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Blog{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Blog Section Begin -->
+    <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Blog &amp; Bài Viết</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for blog in blogs %}
+                    <div class="col-lg-6 col-md-6">
+                        <div class="blog-item">
+                            <div class="bi-pic">
+                                {% if blog.image %}
+                                    <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                                {% else %}
+                                    <img src="{% static 'img/blog/blog-1.jpg' %}" alt="Blog">
+                                {% endif %}
+                            </div>
+                            <div class="bi-text">
+                                <span>{{ blog.created_at|date:"d M, Y" }}</span>
+                                <h4><a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a></h4>
+                                <p>{{ blog.content|truncatewords:20 }}</p>
+                                <a href="{% url 'blog_detail' blog.id %}" class="read-more">Đọc thêm <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-lg-12">
+                        <p style="text-align: center; padding: 40px;">Chưa có bài viết nào.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if blogs.has_other_pages %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="pagination-option">
+                            {% if blogs.has_previous %}
+                                <a href="?page=1" class="po-page">
+                                    <i class="fa fa-angle-double-left"></i>
+                                </a>
+                                <a href="?page={{ blogs.previous_page_number }}" class="po-page">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            {% endif %}
+
+                            {% for num in blogs.paginator.page_range %}
+                                {% if blogs.number == num %}
+                                    <a href="?page={{ num }}" class="po-page active">{{ num }}</a>
+                                {% else %}
+                                    <a href="?page={{ num }}" class="po-page">{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if blogs.has_next %}
+                                <a href="?page={{ blogs.next_page_number }}" class="po-page">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <a href="?page={{ blogs.paginator.num_pages }}" class="po-page">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+    <!-- Blog Section End -->
+
+    {% include 'portfolio/includes/footer.html' %}
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

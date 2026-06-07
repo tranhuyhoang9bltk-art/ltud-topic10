@@ -1,0 +1,33 @@
+{% load static %}
+<section class="services-section spad">
+    <div class="container">
+        <div class="row">
+            {% for s in services_list %}
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="services-item">
+                    <!-- Hiển thị Icon từ Font Awesome hoặc ảnh -->
+                    {% if s.icon %}
+                        <div style="text-align: center; margin-bottom: 20px; font-size: 60px; color: #009603;">
+                            <i class="fa {{ s.icon }}"></i>
+                        </div>
+                    {% else %}
+                        <img src="{% static 'img/services/service-1.jpg' %}" alt="" style="width: 100%; height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <h3>{{ s.title }}</h3>
+                    <p>{{ s.description }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="services-item">
+                    <div style="text-align: center; margin-bottom: 20px; font-size: 60px; color: #009603;">
+                        <i class="fa fa-camera"></i>
+                    </div>
+                    <h3>Chụp ảnh</h3>
+                    <p>Các dịch vụ chứ ảnh chuyên nghiệp</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

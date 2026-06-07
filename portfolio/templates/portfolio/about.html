@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Giới thiệu về Phozogy Template">
+    <meta name="keywords" content="Phozogy, unica, sáng tạo, html, giới thiệu">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phozogy | {% if page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Giới thiệu{% endif %}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Quantico:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    {% include 'portfolio/includes/header.html' %}
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bo-links">
+                        <a href="{% url "home" %}"><i class="fa fa-home"></i> Trang chủ</a>
+                        <span>{% if page_obj and page_obj.breadcrumb_title %}{{ page_obj.breadcrumb_title }}{% elif page_obj and page_obj.title %}{{ page_obj.title }}{% else %}Giới thiệu{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- About Section Begin -->
+    <section class="about-section">
+        <div class="container-fluid">
+            {% if about_content or about_features %}
+                <div class="row">
+                    <div class="col-lg-6 p-0">
+                        <div class="about-pic set-bg" data-setbg="{% if about_content and about_content.about_image %}{{ about_content.about_image.url }}{% else %}{% static 'img/about/about-pic.jpg' %}{% endif %}">
+                            {% if about_content and about_content.video_url %}
+                                <a href="{{ about_content.video_url }}" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                            {% else %}
+                                <a href="https://www.youtube.com/watch?v=hxADTEJalRw" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-6 p-0">
+                        <div class="about-text">
+                            <div class="section-title">
+                                <h2>{{ about_content.main_title|default:"Ghi lại những khoảnh khắc chạm đến trái tim bạn" }}</h2>
+                                <p>{{ about_content.main_description|default:"Chúng tôi tạo ra những hình ảnh và video đầy cảm xúc, chuyên nghiệp và mang đậm phong cách riêng." }}</p>
+                            </div>
+                            <div class="at-list">
+                                {% for feature in about_features %}
+                                <div class="al-item">
+                                    <div class="al-pic">
+                                        {% if feature.icon_image %}
+                                            <img src="{{ feature.icon_image.url }}" alt="{{ feature.title }}">
+                                        {% else %}
+                                            <img src="{% static 'img/about/list-' %}{{ forloop.counter }}.png" alt="{{ feature.title }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="al-text">
+                                        <h5>{{ feature.title }}</h5>
+                                        <p>{{ feature.description }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% elif page_obj and page_obj.content %}
+                {{ page_obj.content|safe }}
+            {% else %}
+            <div class="row">
+                <div class="col-lg-6 p-0">
+                    <div class="about-pic set-bg" data-setbg="{% static 'img/about/about-pic.jpg' %}">
+                        <a href="https://www.youtube.com/watch?v=hxADTEJalRw&list=WL&index=49&t=0s" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 p-0">
+                    <div class="about-text">
+                        <div class="section-title">
+                            <h2>Ghi lại những khoảnh khắc chạm đến trái tim bạn</h2>
+                            <p>Chúng tôi tạo ra những hình ảnh và video đầy cảm xúc, chuyên nghiệp và mang đậm phong cách riêng.
+                            </p>
+                        </div>
+                        <div class="at-list">
+                            <div class="al-item">
+                                <div class="al-pic">
+                                    <img src="{% static 'img/about/list-1.png' %}" alt="">
+                                </div>
+                                <div class="al-text">
+                                    <h5>Chuyên nghiệp</h5>
+                                    <p>Đội ngũ giàu kinh nghiệm, luôn đặt chất lượng và tinh thần chuyên nghiệp lên hàng đầu.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="al-item">
+                                <div class="al-pic">
+                                    <img src="{% static 'img/about/list-2.png' %}" alt="">
+                                </div>
+                                <div class="al-text">
+                                    <h5>Tiếp cận cá nhân</h5>
+                                    <p>Mỗi dự án được thiết kế riêng theo phong cách và mong muốn của khách hàng.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="al-item">
+                                <div class="al-pic">
+                                    <img src="{% static 'img/about/list-3.png' %}" alt="">
+                                </div>
+                                <div class="al-text">
+                                    <h5>Lịch trình linh hoạt</h5>
+                                    <p>Chúng tôi hỗ trợ đặt lịch linh hoạt, phù hợp với thời gian của bạn.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="al-item">
+                                <div class="al-pic">
+                                    <img src="{% static 'img/about/list-4.png' %}" alt="">
+                                </div>
+                                <div class="al-text">
+                                    <h5>Kinh nghiệm</h5>
+                                    <p>Chúng tôi có kinh nghiệm đa dạng trong nhiều loại hình chụp ảnh và quay phim.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+    <!-- About Section End -->
+
+    <!-- Team Section Begin -->
+    <section class="team-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="section-title">
+                        <h2>Đội ngũ của chúng tôi</h2>
+                        <p>Gặp gỡ đội ngũ chuyên nghiệp, tận tâm và sẵn sàng đồng hành cùng dự án của bạn.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="right-btn">
+                        <a href="{% url 'theme_page' 'pricing.html' %}#pricing" class="primary-btn">Đặt lịch</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% if team_members %}
+                    {% for member in team_members %}
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="team-item">
+                            {% if member.image %}
+                                <img src="{{ member.image.url }}" alt="{{ member.name }}">
+                            {% else %}
+                                <img src="{% static 'img/team/team-1.jpg' %}" alt="{{ member.name }}">
+                            {% endif %}
+                            <div class="ti-text">
+                                <h5>{{ member.name }}</h5>
+                                <span>{{ member.position }}</span>
+                                <div class="ti-social">
+                                    {% if member.facebook_url %}<a href="{{ member.facebook_url }}" target="_blank"><i class="fa fa-facebook"></i></a>{% endif %}
+                                    {% if member.twitter_url %}<a href="{{ member.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a>{% endif %}
+                                    {% if member.youtube_url %}<a href="{{ member.youtube_url }}" target="_blank"><i class="fa fa-youtube-play"></i></a>{% endif %}
+                                    {% if member.instagram_url %}<a href="{{ member.instagram_url }}" target="_blank"><i class="fa fa-instagram"></i></a>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-item">
+                        <img src="{% static 'img/team/team-1.jpg' %}" alt="">
+                        <div class="ti-text">
+                            <h5>Alan Walker</h5>
+                            <span>Nhiếp ảnh gia</span>
+                            <div class="ti-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-item">
+                        <img src="{% static 'img/team/team-2.jpg' %}" alt="">
+                        <div class="ti-text">
+                            <h5>Ava Max</h5>
+                            <span>Đạo diễn</span>
+                            <div class="ti-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-item">
+                        <img src="{% static 'img/team/team-3.jpg' %}" alt="">
+                        <div class="ti-text">
+                            <h5>Anne-Marie</h5>
+                            <span>Quản lý</span>
+                            <div class="ti-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="team-item">
+                        <img src="{% static 'img/team/team-4.jpg' %}" alt="">
+                        <div class="ti-text">
+                            <h5>Billie Eilish</h5>
+                            <span>Trợ lý</span>
+                            <div class="ti-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- Team Section End -->
+
+    <!-- Cta Section Begin -->
+    <section class="cta-section spad set-bg" data-setbg="{% static 'img/cta-bg.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cta-text">
+                        <h2>Bạn muốn quảng bá thương hiệu của mình?</h2>
+                        <p>Hãy để chúng tôi giúp bạn tạo ra hình ảnh và video chất lượng, nâng tầm thương hiệu của bạn trên mọi nền tảng.</p>
+                        <a href="{% url 'contact' %}" class="primary-btn">Liên hệ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Cta Section End -->
+
+    <!-- Testimoial Section Begin -->
+    <section class="testimonial-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>{{ about_content.testimonial_title|default:'Khách hàng nói gì?' }}</h2>
+                        <p>{{ about_content.testimonial_description|default:'Đánh giá chân thực từ những khách hàng đã trải nghiệm dịch vụ của chúng tôi.' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% if testimonials %}
+                    {% for testimonial in testimonials %}
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="testimonial-item">
+                            <div class="ti-author">
+                                <div class="ta-pic">
+                                    {% if testimonial.image %}
+                                        <img src="{{ testimonial.image.url }}" alt="{{ testimonial.customer_name }}">
+                                    {% else %}
+                                        <img src="{% static 'img/testimonial/ta-1.jpg' %}" alt="{{ testimonial.customer_name }}">
+                                    {% endif %}
+                                </div>
+                                <div class="ta-text">
+                                    <h5>{{ testimonial.customer_name }}</h5>
+                                    {% if testimonial.customer_handle %}
+                                        <span>{{ testimonial.customer_handle }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <p>{{ testimonial.quote }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="testimonial-item">
+                            <div class="ti-author">
+                                <div class="ta-pic">
+                                    <img src="{% static 'img/testimonial/ta-1.jpg' %}" alt="">
+                                </div>
+                                <div class="ta-text">
+                                    <h5>ANDREW FILDER</h5>
+                                    <span>@filder_muko</span>
+                                </div>
+                            </div>
+                            <p>Dịch vụ rất chuyên nghiệp và kết quả vượt mong đợi.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="testimonial-item">
+                            <div class="ti-author">
+                                <div class="ta-pic">
+                                    <img src="{% static 'img/testimonial/ta-2.jpg' %}" alt="">
+                                </div>
+                                <div class="ta-text">
+                                    <h5>David Guetta</h5>
+                                    <span>@filder_muko</span>
+                                </div>
+                            </div>
+                            <p>Đội ngũ rất thân thiện, tôi cảm thấy thoải mái trong suốt buổi chụp.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="testimonial-item">
+                            <div class="ti-author">
+                                <div class="ta-pic">
+                                    <img src="{% static 'img/testimonial/ta-3.jpg' %}" alt="">
+                                </div>
+                                <div class="ta-text">
+                                    <h5>Bebe Rexha</h5>
+                                    <span>@filder_muko</span>
+                                </div>
+                            </div>
+                            <p>Hình ảnh được xử lý kỹ lưỡng, màu sắc đẹp và tôi rất hài lòng.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="testimonial-item">
+                            <div class="ti-author">
+                                <div class="ta-pic">
+                                    <img src="{% static 'img/testimonial/ta-4.jpg' %}" alt="">
+                                </div>
+                                <div class="ta-text">
+                                    <h5>Adam Levine</h5>
+                                    <span>@filder_muko</span>
+                                </div>
+                            </div>
+                            <p>Sản phẩm cuối cùng rất chuyên nghiệp, tôi rất hài lòng với dịch vụ.</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- Testimonial Section End -->
+
+    {% include 'portfolio/includes/footer.html' %}
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-about">
+                        <div class="fa-logo">
+                            <a href="#">
+                                <img src="{% static 'img/f-logo.png' %}" alt="">
+                            </a>
+                        </div>
+                        <p>Chúng tôi luôn cập nhật xu hướng mới nhất và mang đến nội dung sáng tạo cho thương hiệu của bạn.</p>
+                        <div class="fa-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-widget">
+                        <h5>Instagram</h5>
+                        <div class="fw-instagram">
+                            <img src="{% static 'img/instagram/insta-1.jpg' %}" alt="">
+                            <img src="{% static 'img/instagram/insta-2.jpg' %}" alt="">
+                            <img src="{% static 'img/instagram/insta-3.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-widget">
+                        <h5>Liên kết nhanh</h5>
+                        <ul>
+                            <li><a href="#">Trang chủ</a></li>
+                            <li><a href="#">Giới thiệu</a></li>
+                            <li><a href="#">Liên hệ</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Thư viện</a></li>
+                            <li><a href="#">Dự án</a></li>
+                            <li><a href="#">Dịch vụ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="fs-widget">
+                        <h5>Đăng ký</h5>
+                        <p>Nhập email để nhận thông tin mới nhất về dịch vụ và ưu đãi.</p>
+                        <div class="fw-subscribe">
+                            <form action="#">
+                                <input type="text" placeholder="Địa chỉ email">
+                                <button type="submit"><i class="fa fa-send"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="copyright-text">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

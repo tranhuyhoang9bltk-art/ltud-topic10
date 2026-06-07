@@ -1,0 +1,273 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrahead %}
+<style>
+    .dashboard-section {
+        margin-bottom: 18px;
+    }
+    
+    .notification-card {
+        background: white;
+        border-radius: 8px;
+        padding: 14px 16px;
+        margin-bottom: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        border-left: 4px solid #dc3545;
+        transition: all 0.2s ease;
+    }
+    
+    .notification-card:hover {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+    
+    .notification-card.pending {
+        border-left-color: #FFC107;
+    }
+    
+    .notification-card.success {
+        border-left-color: #28A745;
+    }
+    
+    .notification-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    
+    .notification-title {
+        font-weight: bold;
+        font-size: 15px;
+        color: #333;
+    }
+    
+    .notification-badge {
+        display: inline-block;
+        background: #dc3545;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+    }
+    
+    .notification-badge.warning {
+        background: #FFC107;
+        color: #333;
+    }
+    
+    .notification-badge.success {
+        background: #28A745;
+    }
+    
+    .notification-details {
+        font-size: 13px;
+        color: #666;
+        margin-top: 8px;
+        line-height: 1.45;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    
+    .stat-card {
+        background: white;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+        font-weight: bold;
+        color: #009603;
+        margin: 8px 0;
+    }
+    
+    .stat-label {
+        font-size: 13px;
+        color: #666;
+    }
+    
+    .section-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 14px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .section-title::before {
+        content: '';
+        width: 4px;
+        height: 20px;
+        background: #009603;
+        border-radius: 2px;
+    }
+    
+    .no-data {
+        background: #f9f9f9;
+        padding: 14px;
+        border-radius: 8px;
+        text-align: center;
+        color: #999;
+    }
+    
+    .view-all-link {
+        display: inline-block;
+        margin-top: 8px;
+        color: #009603;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 13px;
+    }
+    
+    .view-all-link:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    
+    {% if pending_count > 0 %}
+    <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+        <strong style="color: #856404;">⚠️ Thông báo:</strong>
+        <span style="color: #856404;">Bạn có <strong>{{ pending_count }}</strong> đơn đặt lịch chưa xác nhận thanh toán!</span>
+    </div>
+    {% endif %}
+    
+    <!-- Statistics -->
+    <div class="dashboard-section">
+        <h2 class="section-title">📊 Thống Kê</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Tổng Bookings</div>
+                <div class="stat-number">{{ total_bookings }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Chờ Thanh Toán</div>
+                <div class="stat-number" style="color: #FFC107;">{{ pending_count }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Sắp Tới (7 ngày)</div>
+                <div class="stat-number" style="color: #0066cc;">{{ upcoming_count }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Tổng Doanh Thu</div>
+                <div class="stat-number" style="color: #28A745;">${{ total_revenue }}</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pending Bookings -->
+    <div class="dashboard-section">
+        <h2 class="section-title">
+            🔴 Chờ Thanh Toán <span class="notification-badge">{{ pending_count }}</span>
+        </h2>
+        {% if pending_bookings %}
+            {% for booking in pending_bookings %}
+            <div class="notification-card pending">
+                <div class="notification-header">
+                    <div class="notification-title">
+                        #{{ booking.id }} - {{ booking.customer_name }}
+                    </div>
+                    <span class="notification-badge warning">Chờ thanh toán</span>
+                </div>
+                <div class="notification-details">
+                    <strong>📧 Email:</strong> {{ booking.customer_email }}<br>
+                    <strong>📱 Phone:</strong> {{ booking.customer_phone }}<br>
+                    <strong>📦 Gói:</strong> {{ booking.package.get_name_display }} ({{ booking.package.price }}$)<br>
+                    <strong>📅 Ngày chụp:</strong> {{ booking.scheduled_date|date:"d/m/Y" }}<br>
+                    <strong>🕐 Đặt lúc:</strong> {{ booking.booking_date|date:"d/m/Y H:i:s" }}<br>
+                    <a href="/admin/portfolio/booking/{{ booking.id }}/change/" class="view-all-link">Xem chi tiết →</a>
+                </div>
+            </div>
+            {% endfor %}
+            <a href="/admin/portfolio/booking/?status=pending" class="view-all-link">Xem tất cả đơn chờ thanh toán →</a>
+        {% else %}
+            <div class="no-data">✅ Không có đơn chờ thanh toán</div>
+        {% endif %}
+    </div>
+    
+    <!-- Recent Bookings -->
+    <div class="dashboard-section">
+        <h2 class="section-title">
+            ⏰ Bookings 24 Giờ Gần Đây <span class="notification-badge success">{{ recent_count }}</span>
+        </h2>
+        {% if recent_bookings %}
+            {% for booking in recent_bookings %}
+            <div class="notification-card success">
+                <div class="notification-header">
+                    <div class="notification-title">
+                        #{{ booking.id }} - {{ booking.customer_name }}
+                    </div>
+                    {% if booking.status == 'pending' %}
+                        <span class="notification-badge warning">Chờ thanh toán</span>
+                    {% elif booking.status == 'paid' %}
+                        <span class="notification-badge success">Đã thanh toán</span>
+                    {% elif booking.status == 'cancelled' %}
+                        <span class="notification-badge" style="background: #DC3545;">Đã hủy</span>
+                    {% endif %}
+                </div>
+                <div class="notification-details">
+                    <strong>📧 Email:</strong> {{ booking.customer_email }}<br>
+                    <strong>📦 Gói:</strong> {{ booking.package.get_name_display }}<br>
+                    <strong>📅 Ngày chụp:</strong> {{ booking.scheduled_date|date:"d/m/Y" }}<br>
+                    <a href="/admin/portfolio/booking/{{ booking.id }}/change/" class="view-all-link">Xem chi tiết →</a>
+                </div>
+            </div>
+            {% endfor %}
+            <a href="/admin/portfolio/booking/" class="view-all-link">Xem tất cả bookings →</a>
+        {% else %}
+            <div class="no-data">Không có bookings trong 24 giờ gần đây</div>
+        {% endif %}
+    </div>
+    
+    <!-- Upcoming Bookings -->
+    <div class="dashboard-section">
+        <h2 class="section-title">
+            📆 Sắp Tới (7 Ngày) <span class="notification-badge success">{{ upcoming_count }}</span>
+        </h2>
+        {% if upcoming_bookings %}
+            {% for booking in upcoming_bookings %}
+            <div class="notification-card" style="border-left-color: #0066cc;">
+                <div class="notification-header">
+                    <div class="notification-title">
+                        #{{ booking.id }} - {{ booking.customer_name }} - {{ booking.scheduled_date|date:"d/m/Y" }}
+                    </div>
+                </div>
+                <div class="notification-details">
+                    <strong>📧 Email:</strong> {{ booking.customer_email }}<br>
+                    <strong>📱 Phone:</strong> {{ booking.customer_phone }}<br>
+                    <strong>📦 Gói:</strong> {{ booking.package.get_name_display }} ({{ booking.package.duration }}h)<br>
+                    <strong>💰 Giá:</strong> ${{ booking.package.price }}<br>
+                    <a href="/admin/portfolio/booking/{{ booking.id }}/change/" class="view-all-link">Xem chi tiết →</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-data">Không có bookings trong 7 ngày tới</div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script>
+    // Auto refresh dashboard every 5 minutes
+    setTimeout(function() {
+        location.reload();
+    }, 5 * 60 * 1000);
+</script>
+{% endblock %}
