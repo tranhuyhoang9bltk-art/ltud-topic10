@@ -76,6 +76,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# ========== CSRF CONFIGURATION ==========
+# Thêm các tên miền mà bạn tin tưởng để vượt qua kiểm tra CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'https://ltud-topic10-production.up.railway.app',
+    'https://nhom10lpud.nfy.fyi',
+]
+
 # ========== EMAIL CONFIGURATION ==========
 # Sử dụng console backend cho development (in email ra console)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
