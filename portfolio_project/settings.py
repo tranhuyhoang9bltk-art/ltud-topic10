@@ -6,7 +6,12 @@ SECRET_KEY = 'django-secret-key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'ltud-topic10-production.up.railway.app',
+    'localhost',
+    '127.0.0.1',
+    '*'  # cho phép tất cả (dùng khi dev)
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -93,4 +98,3 @@ SITE_NAME = 'My Portfolio'
 
 # Timeout for email sending (seconds)
 EMAIL_TIMEOUT = 30
-
