@@ -1,9 +1,7 @@
 Django==4.2.13
 gunicorn==21.2.0
-Pillow==10.0.0
+Pillow==11.2.1
 psycopg2-binary==2.9.9
 python-decouple==3.8
 django-cors-headers==4.2.0
 django-filter==23.3
-setuptools==68.0.0
-wheel==0.41.0
