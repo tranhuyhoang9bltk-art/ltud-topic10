@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Phozogy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            padding: 50px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        
+        .info-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .info-section p {
+            margin: 10px 0;
+        }
+        
+        .link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Chào mừng!</h1>
+        <p class="subtitle">
+            Đây là trang chủ của Portfolio Phozogy Template.<br>
+            Dự án được xây dựng với Django và thiết kế đáp ứng.
+        </p>
+        
+        <div class="button-group">
+            <a href="portfolio/templates/portfolio/index.html" class="btn btn-primary">Xem Portfolio</a>
+            <a href="https://github.com/tranhuyhoang9bltk-art/ltud-topic10" class="btn btn-secondary" target="_blank">Xem Code</a>
+        </div>
+        
+        <div class="info-section">
+            <p>📁 <strong>Cấu trúc dự án:</strong></p>
+            <p>Django Portfolio App với giao diện đẹp mắt</p>
+            <p>✨ <strong>Tính năng:</strong> Categories, Projects, Blog, Gallery, Services</p>
+            <p style="margin-top: 20px; font-size: 0.8em; color: #999;">
+                Được tạo bởi <a href="https://github.com/tranhuyhoang9bltk-art" class="link" target="_blank">@tranhuyhoang9bltk-art</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
